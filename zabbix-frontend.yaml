@@ -1,0 +1,91 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: mon-zabbix
+  creationTimestamp: null
+  labels:
+    zabbix-app: zabbix-server
+  name: zabbix-web-nginx-mysql
+spec:
+  selector:
+    matchLabels:
+      zabbix-app: zabbix-server
+  serviceName: "zabbix-web-nginx-mysql"
+  replicas: 1
+  #strategy:
+  #  type: Recreate
+  template:
+    metadata:
+      labels:
+        zabbix-app: zabbix-server
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: zabbix-app
+              
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_ROOT_PASSWORD
+              name: zabbix-app
+
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_PASSWORD
+              name: zabbix-app
+
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: MYSQL_ROOT_PASSWORD
+              name: zabbix-app
+        - name: ZBX_SERVER_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: ZBX_SERVER_HOST
+              name: zabbix-app
+        - name: ZBX_SERVER_NAME
+          valueFrom:
+            configMapKeyRef:
+              key: ZBX_SERVER_NAME
+              name: zabbix-app
+        - name: DB_SERVER_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: DB_SERVER_HOST 
+              name: zabbix-app
+        image: zabbix/zabbix-web-nginx-mysql:ubuntu-5.2-latest
+        name: zabbix-web-nginx-mysql
+        ports:
+        - containerPort: 8080
+        - containerPort: 8443
+### Service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: mon-zabbix
+  annotations:
+  creationTimestamp: null
+  labels:
+    zabbix-app: zabbix-server
+  name: zabbix-web-nginx-mysql
+spec:
+  type: NodePort
+  selector:
+    zabbix-app: zabbix-server
+  ports:
+  - name: "8080"
+    port: 8080
+    targetPort: 8080
+    nodePort: 31080
+  - name: "8443"
+    port: 8443
+    targetPort: 31443
+

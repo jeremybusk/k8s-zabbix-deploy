@@ -1,0 +1,6 @@
+kubectl expose pod/zabbix-web-nginx-mysql-0 -n mon-zabbix
+
+k -n mon-zabbix exec -it zabbix-server-0 -- /bin/bash
+
+username: Admin
+userpass: zabbix

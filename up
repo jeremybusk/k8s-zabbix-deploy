@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+microk8s.kubectl apply -f namespace.yaml
+microk8s.kubectl apply -f configmaps.yaml
+microk8s.kubectl apply -f secrets.yaml
+microk8s.kubectl apply -f database-mysql.yaml
+microk8s.kubectl apply -f zabbix-agent.yaml
+microk8s.kubectl apply -f zabbix-server.yaml
+microk8s.kubectl apply -f zabbix-frontend.yaml
+sleep 10
+microk8s.kubectl get deployment,svc,pods,pvc,ingress  -n mon-zabbix -o wide

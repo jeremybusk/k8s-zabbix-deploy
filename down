@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+# micork8s.kubectl delete pod/zabbix-web-nginx-mysql-0 -n mon-zabbix
+microk8s.kubectl delete namespace mon-zabbix

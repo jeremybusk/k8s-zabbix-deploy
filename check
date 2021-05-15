@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -e
+
+microk8s.kubectl get deployment,svc,pods,pvc,ingress -n mon-zabbix
+microk8s.kubectl -n mon-zabbix logs pod/mysql-server-0
+microk8s.kubectl -n mon-zabbix logs pod/zabbix-server-0
+microk8s.kubectl -n mon-zabbix logs pod/zabbix-web-nginx-mysql-0
+microk8s.kubectl logs -f pod/zabbix-web-nginx-mysql-0 -n mon-zabbix

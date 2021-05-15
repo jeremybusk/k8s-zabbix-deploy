@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -e
+
+microk8s.kubectl logs -f pod/zabbix-web-nginx-mysql-0 -n mon-zabbix
