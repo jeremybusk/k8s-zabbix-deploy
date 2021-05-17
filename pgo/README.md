@@ -1,0 +1,4 @@
+# Troubleshooting.
+
+## Slowness
+- high %iowait
