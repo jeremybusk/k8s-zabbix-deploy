@@ -29,5 +29,10 @@ EOF
 ./client-setup.sh
 
 export PATH="$HOME/.pgo/pgo:$PATH"
+grep "export PATH" ~/.bashrc && echo PATH update exists || echo export PATH="$HOME/.pgo/pgo:$PATH" >> ~/.bashrc
+# if [ -z "${PATH-}" ]; then export PATH=/usr/local/bin:/usr/bin:/bin; fi
+sed -i ~/.bashrc export PATH="$HOME/.pgo/pgo:$PATH"
 /root/.pgo/pgo/pgo -h
 pgo -h
+
+# rm -rf postgres-operator
