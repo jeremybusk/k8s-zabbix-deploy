@@ -3,6 +3,8 @@
 ## Slowness
 - high %iowait
 
+https://access.crunchydata.com/documentation/postgres-operator/latest/quickstart/
+
 
 https://access.crunchydata.com/documentation/postgres-operator/latest/
 
